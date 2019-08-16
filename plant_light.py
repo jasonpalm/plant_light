@@ -2,8 +2,8 @@
 
 # A simple script for the raspberry pi 2+ to turn a plant light on and off on schedule
 # (See pinout below) 
-start = 4    #  4 AM
-end   = 22   # 10 PM
+start = 6    # 
+end   = 18   # 
 pin   = 4    # GPIO4
 
 # J8:
@@ -43,7 +43,10 @@ def off():
 
 def auto():
     hour = dt.datetime.now().hour
-    if (start <= hour < end):
+    turn_on = start <= hour < end
+    if start > end:
+        turn_on = not turn_on
+    if turn_on:
         on()
     else:
         off()
